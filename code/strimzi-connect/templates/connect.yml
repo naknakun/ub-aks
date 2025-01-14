@@ -1,0 +1,21 @@
+apiVersion: kafka.strimzi.io/v1beta2
+kind: KafkaConnect
+metadata:
+  name: {{ template "kafka-comp.fullname" . }}
+  namespace: {{ .Release.Namespace }}
+  {{- if .Values.annotations }}
+  annotations: {{- toYaml .Values.annotations | nindent 4 }}
+  {{- end }}
+spec:
+  image: {{ .Values.image | quote }}
+  version: {{ .Values.version }}
+  replicas: {{ .Values.replicas }}
+  bootstrapServers: {{ .Values.bootstrapServers | quote }}
+  {{- if .Values.tls }}
+  tls: {{- toYaml .Values.tls | nindent 4 }}
+  {{- end }}
+  config: {{- toYaml .Values.config | nindent 4 }}
+  {{- if .Values.containerTemplate }}
+  template:
+    connectContainer: {{- toYaml .Values.containerTemplate | nindent 6 }}
+  {{- end }}
