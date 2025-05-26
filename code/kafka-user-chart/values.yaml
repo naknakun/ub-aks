@@ -1,7 +1,7 @@
 users:
   - name: testuser
-    cluster: my-kafka
     namespace: kafka
+    cluster: my-kafka
     authentication:
       type: scram-sha-512
     authorization:
@@ -12,8 +12,8 @@ users:
         - Write
 
   - name: readonly-user
-    cluster: my-kafka
     namespace: kafka
+    cluster: my-kafka
     authentication:
       type: scram-sha-512
     authorization:
@@ -21,3 +21,10 @@ users:
       topic: readonly-topic
       operations:
         - Read
+
+  - name: simpleuser
+    namespace: kafka
+    cluster: my-kafka
+    authentication:
+      type: scram-sha-512
+    # authorization 없음 → ACL 미부여

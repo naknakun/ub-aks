@@ -7,16 +7,19 @@ metadata:
   labels:
     strimzi.io/cluster: {{ .cluster }}
 spec:
+  {{- if .authentication }}
   authentication:
-    type: {{ .authentication.type }}
+    type: {{ .authentication.type | default "scram-sha-512" }}
+  {{- end }}
   {{- if and .authorization .authorization.enabled }}
   authorization:
     type: simple
     acls:
+      {{- $topic := .authorization.topic | default "default-topic" }}
       {{- range .authorization.operations }}
       - resource:
           type: topic
-          name: {{ $.authorization.topic }}
+          name: {{ $topic }}
           patternType: literal
         operation: {{ . }}
       {{- end }}
