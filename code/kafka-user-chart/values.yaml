@@ -1,0 +1,23 @@
+users:
+  - name: testuser
+    cluster: my-kafka
+    namespace: kafka
+    authentication:
+      type: scram-sha-512
+    authorization:
+      enabled: true
+      topic: important-topic
+      operations:
+        - Read
+        - Write
+
+  - name: readonly-user
+    cluster: my-kafka
+    namespace: kafka
+    authentication:
+      type: scram-sha-512
+    authorization:
+      enabled: true
+      topic: readonly-topic
+      operations:
+        - Read
