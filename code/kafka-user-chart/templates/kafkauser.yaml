@@ -9,7 +9,7 @@ metadata:
 spec:
   authentication:
     type: {{ .authentication.type }}
-  {{- if .authorization.enabled }}
+  {{- if and .authorization.enabled .authorization.topic }}
   authorization:
     type: simple
     acls:
