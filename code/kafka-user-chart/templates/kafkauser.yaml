@@ -9,14 +9,14 @@ metadata:
 spec:
   authentication:
     type: {{ .authentication.type }}
-  {{- if and .authorization.enabled .authorization.topic }}
+  {{- if and .authorization .authorization.enabled }}
   authorization:
     type: simple
     acls:
       {{- range .authorization.operations }}
       - resource:
           type: topic
-          name: {{ $.authorization.topic }}
+          name: {{ .authorization.topic | default "default-topic" }}
           patternType: literal
         operation: {{ . }}
       {{- end }}
