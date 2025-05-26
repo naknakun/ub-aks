@@ -16,7 +16,7 @@ spec:
       {{- range .authorization.operations }}
       - resource:
           type: topic
-          name: {{ .authorization.topic | default "default-topic" }}
+          name: {{ $.authorization.topic }}
           patternType: literal
         operation: {{ . }}
       {{- end }}
